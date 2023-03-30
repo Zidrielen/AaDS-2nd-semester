@@ -102,7 +102,7 @@ public:
 		while (tmp_node)
 		{
 			if (key < tmp_node->data) tmp_node = tmp_node->left;
-			else if (key < tmp_node->data) tmp_node = tmp_node->right;
+			else if (key > tmp_node->data) tmp_node = tmp_node->right;
 			else return true;
 		}
 
@@ -137,4 +137,7 @@ public:
 		root = delete_node(key, root);
 		return true;
 	}
+
+	/*----Метод, возращающий указатель на корень дерева(НАРУШАЕТСЯ ЗАЩИЩЁННОСТЬ)----*/
+	Node* get_root() const { return root; }
 };
