@@ -44,9 +44,8 @@ private:
 			Node* tmp_node = node;
 			if (!node->left || !node->right)
 			{
-				tmp_node = (!node->right) ? node->left : node->right;
-				delete node;
-				node = tmp_node;
+				node = (!node->right) ? node->left : node->right;
+				delete tmp_node;
 			}
 			else
 			{
