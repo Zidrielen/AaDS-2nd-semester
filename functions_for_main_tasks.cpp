@@ -35,7 +35,7 @@ int check_number_of_tree(int size)
 	return n;
 }
 
-int lcg() 
+int lcg()
 {
 	static int x = 0;
 	x = (1021 * x + 24631) % 116640;
@@ -87,9 +87,7 @@ void test_contains_set(const int numb, const int rep)
 	{
 		auto start = high_resolution_clock::now();
 
-		test.contains(lcg());
-		/*При такой проверке маловероятен шанс нахождения элемента, поэтому
-		считаем, что мы рассматриваем худшее время поиска элемента во множестве*/
+		test.contains(rand());
 
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<nanoseconds>(stop - start);
@@ -109,7 +107,7 @@ void test_insert_set(const int numb, const int rep)
 	{
 		set tmp = test;
 		/*При 100000 элементах программа "застынет", т.к
-		нужно 1000 раз копировать это дерево в новое дерево*/
+		нужно 1000 раз копировать дерево test в дерево tmp*/
 
 		auto start = high_resolution_clock::now();
 
@@ -133,11 +131,11 @@ void test_erase_set(const int numb, const int rep)
 	{
 		set tmp = test;
 		/*При 100000 элементах программа "застынет", т.к
-		нужно 1000 раз копировать это дерево в новое дерево*/
+		нужно 1000 раз копировать дерево test в дерево tmp*/
 
 		auto start = high_resolution_clock::now();
 
-		tmp.erase(lcg());
+		tmp.erase(rand());
 
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<nanoseconds>(stop - start);
@@ -176,9 +174,7 @@ void test_contains_vector(const int numb, const int rep)
 	{
 		auto start = high_resolution_clock::now();
 
-		std::find(test.begin(), test.end(), lcg());
-		/*При такой проверке маловероятен шанс нахождения элемента, поэтому
-		считаем, что мы рассматриваем худшее время поиска элемента в векторе*/
+		std::find(test.begin(), test.end(), rand());
 
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<nanoseconds>(stop - start);
@@ -220,7 +216,7 @@ void test_erase_vector(const int numb, const int rep)
 		std::vector<int> tmp = test;
 		auto start = high_resolution_clock::now();
 
-		tmp.erase(std::remove(tmp.begin(), tmp.end(), lcg()), tmp.end());
+		tmp.erase(std::remove(tmp.begin(), tmp.end(), rand()), tmp.end());
 
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<nanoseconds>(stop - start);
