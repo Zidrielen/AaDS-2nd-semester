@@ -5,7 +5,6 @@
 #include <conio.h>
 
 #include "sorting_algorithms.h"
-#include "functions.h"
 
 int lcg() {
 	static int x = 0;
