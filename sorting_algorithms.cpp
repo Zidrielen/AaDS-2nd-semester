@@ -1,11 +1,27 @@
 #include <chrono>
 using namespace std::chrono;
 
+//Структура, которая хранит информацию о числе копирований, сравнений элементов и времени сортировок
 struct stats
 {
 	size_t comparison_count = 0;
 	size_t copy_count = 0;
 	int time_count = 0;
+
+	void operator += (stats data)
+	{
+		comparison_count += data.comparison_count;
+		copy_count += data.copy_count;
+		time_count += data.time_count;
+	}
+
+	void print(int i)
+	{
+		std::cout << i << "   ";
+		std::cout << comparison_count << "   ";
+		std::cout << copy_count << "   ";
+		std::cout << time_count << " mcs" << "\n";
+	}
 };
 
 //Перестановка элементов (1 вызов этой функции - это плюс 3 к общему числу копирований элементов)
@@ -69,10 +85,14 @@ int hoar_sort(std::vector<int>& arr, int left, int right, stats& data)
 
 		if (left <= right)
 		{
-			swap(arr[left], arr[right]);
-			data.copy_count += 3;
+			if (arr[left] > arr[right])
+			{
+				swap(arr[left], arr[right]);
+				data.copy_count += 3;
+			}
 			left++;
 			right--;
+			data.comparison_count++;
 		}
 	}
 	return left;
