@@ -44,7 +44,6 @@ int choose_algorithm()
 int main()
 {
 	std::vector<int> sizes;
-	stats data;
 	int n = 0;
 
 	//Заполнение массива, отражающего количество элементов в массиве sort_arr
@@ -62,29 +61,22 @@ int main()
 
 			for (auto i : sizes)
 			{
-				size_t sum_comparison = 0, sum_copy = 0, sum_time = 0;
-
+				stats data;
 				for (int j = 0; j < 100; j++)
 				{
 					std::vector<int> sort_arr;
 					for (int k = 0; k < i; k++) sort_arr.push_back(lcg());
 
-					if (n == 1) data = bubble_sort(sort_arr);
-					else if (n == 2) data = quick_sort(sort_arr);
-					else data = heap_sort(sort_arr);
-
-					sum_comparison += data.comparison_count;
-					sum_copy += data.copy_count;
-					sum_time += data.time_count;
+					if (n == 1) data += bubble_sort(sort_arr);
+					else if (n == 2) data += quick_sort(sort_arr);
+					else data += heap_sort(sort_arr);
 				}
 
 				std::cout << i << "   ";
-				std::cout << sum_comparison / 100 << "   ";
-				std::cout << sum_copy / 100 << "   ";
-				std::cout << (double)sum_time / 100 << " mcs" << "\n";
+				std::cout << data.comparison_count / 100 << "   ";
+				std::cout << data.copy_count / 100 << "   ";
+				std::cout << (double)data.time_count / 100 << " mcs" << "\n";
 			}
-			std::cout << "\nProcess completed. Press any key to return to the menu";
-			_getch();
 		}
 
 		else if (n == 2)
@@ -93,6 +85,7 @@ int main()
 
 			for (auto i : sizes)
 			{
+				stats data;
 				std::vector<int> sort_arr;
 				for (int k = 1; k <= i; k++) sort_arr.push_back(k);
 
@@ -100,13 +93,8 @@ int main()
 				else if (n == 2) data = quick_sort(sort_arr);
 				else data = heap_sort(sort_arr);
 
-				std::cout << i << "   ";
-				std::cout << data.comparison_count << "   ";
-				std::cout << data.copy_count << "   ";
-				std::cout << data.time_count << " mcs" << "\n";
+				data.print(i);
 			}
-			std::cout << "\nProcess completed. Press any key to return to the menu";
-			_getch();
 		}
 
 		else if (n == 3)
@@ -115,6 +103,7 @@ int main()
 
 			for (auto i : sizes)
 			{
+				stats data;
 				std::vector<int> sort_arr;
 				for (int k = i; k >= 1; k--) sort_arr.push_back(k);
 
@@ -122,15 +111,15 @@ int main()
 				else if (n == 2) data = quick_sort(sort_arr);
 				else data = heap_sort(sort_arr);
 
-				std::cout << i << "   ";
-				std::cout << data.comparison_count << "   ";
-				std::cout << data.copy_count << "   ";
-				std::cout << data.time_count << " mcs" << "\n";
+				data.print(i);
 			}
-			std::cout << "\nProcess completed. Press any key to return to the menu";
-			_getch();
 		}
 
 		else if (n == 4) break;
+
+		else break;
+
+		std::cout << "\nProcess completed. Press any key to return to the menu";
+		_getch();
 	}
 }
