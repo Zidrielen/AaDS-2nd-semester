@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <list>
 #include <limits>
 #include <unordered_map>
 #include <queue>
